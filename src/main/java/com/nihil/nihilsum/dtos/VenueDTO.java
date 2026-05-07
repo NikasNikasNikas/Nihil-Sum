@@ -1,7 +1,9 @@
 package com.nihil.nihilsum.dtos;
 
 import com.nihil.nihilsum.models.Venue;
+import lombok.Data;
 
+@Data
 public class VenueDTO {
     private Long id;
     private String country;

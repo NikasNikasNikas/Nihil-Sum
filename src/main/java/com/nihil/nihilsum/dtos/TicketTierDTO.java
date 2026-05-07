@@ -1,9 +1,11 @@
 package com.nihil.nihilsum.dtos;
 
 import com.nihil.nihilsum.models.TicketTier;
+import lombok.Data;
 
 import java.math.BigDecimal;
 
+@Data
 public class TicketTierDTO {
     private Long id;
     private Long eventId;
