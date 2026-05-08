@@ -28,8 +28,11 @@ public class Event {
     
     @Column(name = "end_date")
     private LocalDateTime endDate;
+
+    @Column(name = "description")
+    private String eventDescription;
     
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<TicketTier> ticketTiers = new ArrayList<>();
     
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -3,13 +3,10 @@ package com.nihil.nihilsum.controllers;
 import com.nihil.nihilsum.dtos.EventDTO;
 import com.nihil.nihilsum.dtos.EventPostDTO;
 import com.nihil.nihilsum.services.EventServices;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,13 +14,24 @@ import java.util.List;
 @RestController
 public class EventController {
     private final EventServices _eventServices;
-    @GetMapping("api/Event")
+
+    @GetMapping("api/event")
     public ResponseEntity<List<EventDTO>> getEvents(){
         return _eventServices.getEvents();
     }
 
-    @PostMapping("api/Event")
-    public ResponseEntity<?> postEvent(@Validated @RequestBody EventPostDTO eventPostDTO){
+    @PostMapping("api/event")
+    public ResponseEntity<?> postEvent(@Valid @RequestBody EventPostDTO eventPostDTO){
         return _eventServices.addEvent(eventPostDTO);
+    }
+
+    @PutMapping("api/event/{eventId}")
+    public ResponseEntity<?> putEvent(@PathVariable Long eventId, @Valid @RequestBody EventPostDTO eventPostDTO){
+        return _eventServices.updateEvent(eventId, eventPostDTO);
+    }
+
+    @DeleteMapping("api/event/{eventId}")
+    public ResponseEntity<?> putEvent(@PathVariable Long eventId){
+        return _eventServices.deleteEvent(eventId);
     }
 }

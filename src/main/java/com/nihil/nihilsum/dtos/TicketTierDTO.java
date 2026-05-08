@@ -11,13 +11,13 @@ public class TicketTierDTO {
     private Long eventId;
     private BigDecimal ticketPrice;
     private Long total;
-    private Long available;
+    private String tierDescription;
 
     TicketTierDTO(TicketTier ticketTier){
         this.id = ticketTier.getId();
         this.eventId = ticketTier.getEvent().getId();
         this.ticketPrice = ticketTier.getTicketPrice();
         this.total = ticketTier.getTotal();
-        this.available = ticketTier.getAvailable();
+        this.tierDescription = ticketTier.getTierDescription();
     }
 }

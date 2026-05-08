@@ -12,6 +12,7 @@ public class EventDTO {
     private VenueDTO venue;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
+    private String eventDescription;
     private List<TicketTierDTO> ticketTiers;
 
     public EventDTO(Event event){
@@ -20,5 +21,6 @@ public class EventDTO {
         this.startDate = event.getStartDate();
         this.endDate = event.getEndDate();
         this.ticketTiers = event.getTicketTiers().stream().map(TicketTierDTO::new).toList();
+        this.eventDescription = event.getEventDescription();
     }
 }

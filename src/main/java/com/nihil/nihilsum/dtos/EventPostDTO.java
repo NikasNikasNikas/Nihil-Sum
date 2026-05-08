@@ -10,5 +10,6 @@ public class EventPostDTO {
     private Long venueId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
-    private List<TicketTierDTO> ticketTiers;
+    private String eventDescription;
+    private List<TicketTierPostDTO> ticketTiers;
 }

@@ -30,7 +30,7 @@ public class TicketTier {
     private Long total;
     
     @Column(nullable = false)
-    private Long available;
+    private String tierDescription;
     
     @OneToMany(mappedBy = "ticketTier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ticket> tickets = new ArrayList<>();
