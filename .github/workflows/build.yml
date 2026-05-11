@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Backend
         run: |
-          cd backend
+          cd src
           ./mvnw clean compile
 
   build-frontend:
@@ -31,7 +31,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '*'
 
       - name: Build Frontend
         run: |
