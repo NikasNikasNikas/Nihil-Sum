@@ -20,7 +20,6 @@ jobs:
 
       - name: Build Backend
         run: |
-          cd src
           ./mvnw clean compile
 
   build-frontend:
