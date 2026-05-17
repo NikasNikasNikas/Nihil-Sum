@@ -22,7 +22,10 @@ public class Event {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venue_id", nullable = false)
     private Venue venue;
-    
+
+    @Column(name = "event_name", nullable = false)
+    private String name;
+
     @Column(name = "start_date", nullable = false)
     private LocalDateTime startDate;
     

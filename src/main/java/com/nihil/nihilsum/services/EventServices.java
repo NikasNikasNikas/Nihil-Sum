@@ -41,9 +41,11 @@ public class EventServices {
 
         Event newEvent = new Event();
         // bro this setting bullshit is so bad, there should be a better way
+        newEvent.setName(eventDTO.getName());
         newEvent.setStartDate(eventDTO.getStartDate());
         newEvent.setEndDate(eventDTO.getEndDate());
         newEvent.setVenue(venue.get());
+        newEvent.setEventDescription(eventDTO.getEventDescription());
 
         List<TicketTier> ticketTiers = eventDTO.getTicketTiers()
                 .stream()
@@ -84,9 +86,11 @@ public class EventServices {
 
         Event event = existingEventOpt.get();
 
+        event.setName(dto.getName());
         event.setStartDate(dto.getStartDate());
         event.setEndDate(dto.getEndDate());
         event.setVenue(venueOpt.get());
+        event.setEventDescription(dto.getEventDescription());
 
         event.getTicketTiers().clear();
         // this deletes the tiers and replaces them with new ones
