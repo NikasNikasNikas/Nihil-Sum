@@ -99,11 +99,15 @@ public class TicketService {
                     .setWidth(UnitValue.createPercentValue(100))
                     .setMarginBottom(20);
 
+            String dateTimeString = formatDateTime(ticketInfo.getEventStartDate());
+            if (ticketInfo.getEventEndDate() != null) {
+                dateTimeString += " - " + formatDateTime(ticketInfo.getEventEndDate());
+            }
+
             addTableRow(table, "Ticket ID:", ticketUuid, boldFont);
             addTableRow(table, "Event:", ticketInfo.getEventName(), boldFont);
             addTableRow(table, "Description:", ticketInfo.getEventDescription(), boldFont);
-            addTableRow(table, "Date & Time:", formatDateTime(ticketInfo.getEventStartDate()) +
-                    (ticketInfo.getEventEndDate() != null ? " - " + formatDateTime(ticketInfo.getEventEndDate()) : ""), boldFont);
+            addTableRow(table, "Date & Time:", dateTimeString, boldFont);
             addTableRow(table, "Venue:", ticketInfo.getVenueName(), boldFont);
             addTableRow(table, "Address:", ticketInfo.getVenueAddress(), boldFont);
             addTableRow(table, "Ticket Type:", ticketInfo.getTierDescription(), boldFont);
@@ -137,6 +141,12 @@ public class TicketService {
         }
     }
 
+    private String formatDateTime(java.time.LocalDateTime dateTime) {
+        if (dateTime == null) return "N/A";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return dateTime.format(formatter);
+    }
+
     private String getTicketUuid(Long ticketId) {
         Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found with ID: " + ticketId));
@@ -156,11 +166,6 @@ public class TicketService {
         table.addCell(valueCell);
     }
 
-    private String formatDateTime(java.time.LocalDateTime dateTime) {
-        if (dateTime == null) return "N/A";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy - hh:mm a");
-        return dateTime.format(formatter);
-    }
 
     private byte[] generateQRCodeBytes(String data, int size) {
         try {
@@ -177,10 +182,10 @@ public class TicketService {
     }
 
     private String getEventName(Event event) {
-        return "Event: " + event.getName();
+        return event.getName();
     }
 
     private String getVenueName(Venue venue) {
-        return "Venue " + venue.getName() + ", address: " + venue.getAddress();
+        return  venue.getName();
     }
 }
