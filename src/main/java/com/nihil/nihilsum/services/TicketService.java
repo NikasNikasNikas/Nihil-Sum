@@ -126,14 +126,6 @@ public class TicketService {
                 document.add(qrImage);
             }
 
-            // Add footer
-            //Paragraph footer = new Paragraph("Enjoy the event")
-            //        .setFontSize(10)
-            //        .setTextAlignment(TextAlignment.CENTER)
-            //        .setMarginTop(30)
-            //        .setFontColor(ColorConstants.GRAY);
-            //document.add(footer);
-
             document.close();
             return baos.toByteArray();
         } catch (Exception e) {
