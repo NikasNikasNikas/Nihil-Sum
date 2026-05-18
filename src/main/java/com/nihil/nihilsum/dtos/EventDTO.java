@@ -10,6 +10,7 @@ import java.util.List;
 public class EventDTO {
     private Long id;
     private VenueDTO venue;
+    private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String eventDescription;
@@ -18,6 +19,7 @@ public class EventDTO {
     public EventDTO(Event event){
         this.id = event.getId();
         this.venue = new VenueDTO(event.getVenue());
+        this.name = event.getName();
         this.startDate = event.getStartDate();
         this.endDate = event.getEndDate();
         this.ticketTiers = event.getTicketTiers().stream().map(TicketTierDTO::new).toList();

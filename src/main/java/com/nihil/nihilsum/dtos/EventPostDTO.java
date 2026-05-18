@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class EventPostDTO {
     private Long venueId;
+    private String name;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String eventDescription;
