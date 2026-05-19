@@ -31,6 +31,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -44,6 +45,32 @@ public class TicketService {
     public TicketInfoResponseDTO getTicketInfo(Long ticketId) {
         Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found with ID: " + ticketId));
+
+        //if (ticket.getPurchased() != PurchaseStatus.PURCHASED) {
+        //    throw new RuntimeException("Ticket is not valid for download. Status: " + ticket.getPurchased());
+        //}
+
+        Event event = ticket.getEvent();
+        Venue venue = event.getVenue();
+        TicketTier ticketTier = ticket.getTicketTier();
+
+        return TicketInfoResponseDTO.builder()
+                .id(ticket.getId())
+                .eventName(getEventName(event))
+                .eventDescription(event.getEventDescription())
+                .eventStartDate(event.getStartDate())
+                .eventEndDate(event.getEndDate())
+                .venueName(getVenueName(venue))
+                .venueAddress(venue.getAddress())
+                .tierDescription(ticketTier.getTierDescription())
+                .ticketPrice(ticketTier.getTicketPrice())
+                .purchaseDate(ticket.getPurchaseDate())
+                .build();
+    }
+
+    public TicketInfoResponseDTO getTicketInfoByUUID(UUID ticketUUID) {
+        Ticket ticket = ticketRepository.findByTicketUuid(ticketUUID)
+                .orElseThrow(() -> new RuntimeException("Ticket not found with UUID: " + ticketUUID));
 
         //if (ticket.getPurchased() != PurchaseStatus.PURCHASED) {
         //    throw new RuntimeException("Ticket is not valid for download. Status: " + ticket.getPurchased());
@@ -104,7 +131,7 @@ public class TicketService {
                 dateTimeString += " - " + formatDateTime(ticketInfo.getEventEndDate());
             }
 
-            addTableRow(table, "Ticket ID:", ticketUuid, boldFont);
+            addTableRow(table, "Ticket UUID:", ticketUuid, boldFont);
             addTableRow(table, "Event:", ticketInfo.getEventName(), boldFont);
             addTableRow(table, "Description:", ticketInfo.getEventDescription(), boldFont);
             addTableRow(table, "Date & Time:", dateTimeString, boldFont);

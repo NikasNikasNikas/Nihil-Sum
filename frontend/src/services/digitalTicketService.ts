@@ -12,6 +12,15 @@ export async function fetchTicketInfo(ticketId: string): Promise<TicketInfo> {
     return response.json();
 }
 
+export async function fetchTicketInfoWithUUID(ticketUUID: string): Promise<TicketInfo> {
+    const response = await fetch(`${API_BASE_URL}/${ticketUUID}/infoUUID`);
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to fetch ticket information');
+    }
+    return response.json();
+}
+
 export async function downloadTicketPdf(ticketId: string): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/${ticketId}/pdf`, {
         method: 'GET',

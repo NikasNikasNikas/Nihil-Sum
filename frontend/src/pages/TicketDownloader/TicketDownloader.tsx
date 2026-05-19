@@ -1,6 +1,6 @@
 import {useState } from 'react';
-import { fetchTicketInfo, downloadTicketPdf } from '../services/digitalTicketService';
-import { TicketInfo } from '../types/digitalTicket';
+import { fetchTicketInfo, downloadTicketPdf } from '../../services/digitalTicketService';
+import { TicketInfo } from '../../types/digitalTicket';
 
 const TicketDownloader: React.FC = () => {
     const [ticketId, setTicketId] = useState('');

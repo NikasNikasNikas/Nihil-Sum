@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/tickets")
 @CrossOrigin(origins = "*")
@@ -21,6 +23,12 @@ public class TicketController {
     @GetMapping("/{ticketId}/info")
     public ResponseEntity<TicketInfoResponseDTO> getTicketInfo(@PathVariable Long ticketId) {
         TicketInfoResponseDTO ticketInfo = ticketService.getTicketInfo(ticketId);
+        return ResponseEntity.ok(ticketInfo);
+    }
+
+    @GetMapping("/{ticketUUID}/infoUUID")
+    public ResponseEntity<TicketInfoResponseDTO> getTicketInfo(@PathVariable UUID ticketUUID) {
+        TicketInfoResponseDTO ticketInfo = ticketService.getTicketInfoByUUID(ticketUUID);
         return ResponseEntity.ok(ticketInfo);
     }
 
