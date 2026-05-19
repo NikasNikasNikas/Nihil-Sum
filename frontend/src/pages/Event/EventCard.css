@@ -1,0 +1,63 @@
+.event-card {
+    margin-bottom: 16px;
+    border-radius: 12px !important;
+    transition: all 0.2s ease;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    position: relative;
+}
+
+.event-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #b8b5ff, #f3b7d8, #a7c7e7, #b6e3c6, #f6e7b2);
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    background: #fafafa;
+    border-color: #cbd5e1;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+
+
+.event-icon {
+    font-size: 40px;
+    color: #6366f1;
+}
+
+.event-info {
+    flex: 1;
+}
+
+.event-name {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1e293b;
+}
+
+.date-chip {
+    margin-bottom: 12px;
+    background: #f1f5f9;
+    color: #475569;
+    border-radius: 20px;
+}
+
+.event-description {
+    color: #64748b;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}

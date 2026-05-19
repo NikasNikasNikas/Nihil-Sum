@@ -18,6 +18,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.properties.TextAlignment;
 import com.itextpdf.layout.properties.UnitValue;
 import com.nihil.nihilsum.dtos.TicketInfoResponseDTO;
+import com.nihil.nihilsum.dtos.TicketTierDTO;
 import com.nihil.nihilsum.models.*;
 import com.nihil.nihilsum.repositories.EventRepository;
 import com.nihil.nihilsum.repositories.TicketRepository;
@@ -37,12 +38,12 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 public class TicketService {
 
-    private final TicketRepository ticketRepository;
+    private final TicketRepository _ticketRepository;
     private final EventRepository eventRepository;
     private final VenueRepository venueRepository;
 
     public TicketInfoResponseDTO getTicketInfo(Long ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId)
+        Ticket ticket = _ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found with ID: " + ticketId));
 
         //if (ticket.getPurchased() != PurchaseStatus.PURCHASED) {
@@ -86,7 +87,7 @@ public class TicketService {
                     .setMarginBottom(20);
             document.add(title);
 
-            // Add event name
+            // Add event.ts name
             Paragraph eventName = new Paragraph(ticketInfo.getEventName())
                     .setFont(boldFont)
                     .setFontSize(18)
@@ -140,7 +141,7 @@ public class TicketService {
     }
 
     private String getTicketUuid(Long ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId)
+        Ticket ticket = _ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found with ID: " + ticketId));
         return ticket.getTicketUuid().toString();
     }
@@ -180,4 +181,12 @@ public class TicketService {
     private String getVenueName(Venue venue) {
         return  venue.getName();
     }
+
+    public long getRemainingTickets(TicketTierDTO tier) {
+        long soldTickets = _ticketRepository.countByTicketTierId(tier.getId());
+        long totalTickets = tier.getTotal();
+        long remainingTickets = totalTickets - soldTickets;
+        return Math.max(remainingTickets, 0);
+    }
+
 }

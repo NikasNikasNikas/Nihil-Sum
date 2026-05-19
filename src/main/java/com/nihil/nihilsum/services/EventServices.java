@@ -6,6 +6,7 @@ import com.nihil.nihilsum.models.Event;
 import com.nihil.nihilsum.models.TicketTier;
 import com.nihil.nihilsum.models.Venue;
 import com.nihil.nihilsum.repositories.EventRepository;
+import com.nihil.nihilsum.repositories.TicketRepository;
 import com.nihil.nihilsum.repositories.TicketTierRepository;
 import com.nihil.nihilsum.repositories.VenueRepository;
 import jakarta.transaction.Transactional;
@@ -14,8 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+
+import com.nihil.nihilsum.services.TicketService;
+
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +28,7 @@ public class EventServices {
     private final EventRepository _eventRepository;
     private final VenueRepository _venueRepository;
     private final TicketTierRepository _ticketTierRepository;
+    private final TicketService _ticketService;
 
     public ResponseEntity<List<EventDTO>> getEvents(){
         return ResponseEntity
@@ -66,6 +72,41 @@ public class EventServices {
         _eventRepository.save(newEvent);
         return ResponseEntity.status(HttpStatus.CREATED).body(new EventDTO(newEvent));
     }
+
+    public ResponseEntity<List<EventDTO>> getEventsActive(){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(_eventRepository
+                        .findAll()
+                        .stream()
+                        .filter(event -> event.getStartDate().isAfter(LocalDateTime.now()))
+                        .map(EventDTO::new)
+                        .toList()
+                );
+    }
+
+    public ResponseEntity<?> getEventById(Long id){
+        Optional<Event> event = _eventRepository.findById(id);
+        if (event.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Event not found");
+        }
+
+        EventDTO dto = new EventDTO(event.get());
+
+        /// Data obfuscation so people dont see it (no need to see it)
+        dto.getVenue().setId(null);
+        dto.getVenue().setOwnerId(null);
+        dto.getVenue().setCapacity(null);
+        // Calculate remaining tickets for each tier
+        dto.getTicketTiers().forEach(tier -> {
+            long remaining = _ticketService.getRemainingTickets(tier);
+        });
+
+        return ResponseEntity.status(HttpStatus.OK).body(dto);
+    }
+
+
+
 
     @Transactional
     public ResponseEntity<?> updateEvent(Long eventId, EventPostDTO dto) {
