@@ -1,0 +1,231 @@
+.detail-page-wrapper {
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+.detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.back-button {
+    margin-bottom: 20px !important;
+    color: white !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 25px !important;
+    padding: 8px 20px !important;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.event-detail-paper {
+    background: white !important;
+    border-radius: 28px !important;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.detail-gradient-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 12px;
+    background: linear-gradient(90deg, #b8b5ff, #f3b7d8, #a7c7e7, #b6e3c6, #f6e7b2);
+}
+
+.event-header {
+    text-align: center;
+    padding: 48px 24px 32px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.event-header-icon {
+    font-size: 64px;
+    color: #6366f1;
+    margin-bottom: 16px;
+}
+
+.event-title {
+    font-weight: 800 !important;
+    color: #1e293b;
+    margin-bottom: 0 !important;
+}
+
+.info-section {
+    padding: 24px 32px;
+}
+
+.section-title {
+    font-weight: 700 !important;
+    color: #1e293b;
+    margin-bottom: 20px !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-icon {
+    color: #6366f1;
+}
+
+.dates-container {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.date-item {
+    background: #f8fafc;
+    padding: 16px 24px;
+    border-radius: 16px;
+    flex: 1;
+}
+
+.date-label {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.date-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.time-value {
+    font-size: 0.9rem;
+    color: #6366f1;
+    margin-top: 4px;
+}
+
+.divider {
+    margin: 0 32px !important;
+    background: #e2e8f0;
+}
+
+.venue-details {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.venue-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+}
+
+.venue-address {
+    color: #475569;
+    margin-bottom: 4px;
+}
+
+.venue-location {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.capacity-chip {
+    background: #e0e7ff !important;
+    color: #4338ca !important;
+}
+
+.event-description-text {
+    color: #334155;
+    line-height: 1.7;
+    font-size: 1rem;
+}
+
+.ticket-tiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.tier-card {
+    border-radius: 20px !important;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.tier-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #b8b5ff, #f3b7d8);
+}
+
+.tier-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.tier-name {
+    font-weight: 700 !important;
+    color: #1e293b;
+    margin-bottom: 12px !important;
+}
+
+.tier-price {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #6366f1;
+    margin-bottom: 8px;
+}
+
+.tier-availability {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+}
+
+.buy-button {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+    text-transform: none !important;
+    font-weight: 600 !important;
+}
+
+.buy-button:hover {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed) !important;
+}
+
+.no-tiers {
+    text-align: center;
+    color: #64748b;
+    padding: 40px;
+    background: #f8fafc;
+    border-radius: 20px;
+}
+
+.loading-container,
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 16px;
+}
+
+.loading-container {
+    color: #a78bfa;
+}
+
+.error-container {
+    color: #f87171;
+}
