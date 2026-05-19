@@ -30,6 +30,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
 
@@ -50,6 +51,8 @@ public class TicketService {
         //    throw new RuntimeException("Ticket is not valid for download. Status: " + ticket.getPurchased());
         //}
 
+        ticket.setScannedDate(LocalDateTime.now());
+
         Event event = ticket.getEvent();
         Venue venue = event.getVenue();
         TicketTier ticketTier = ticket.getTicketTier();
@@ -65,6 +68,7 @@ public class TicketService {
                 .tierDescription(ticketTier.getTierDescription())
                 .ticketPrice(ticketTier.getTicketPrice())
                 .purchaseDate(ticket.getPurchaseDate())
+                .lastScannedDate(ticket.getScannedDate())
                 .build();
     }
 
@@ -76,6 +80,8 @@ public class TicketService {
         //    throw new RuntimeException("Ticket is not valid for download. Status: " + ticket.getPurchased());
         //}
 
+        ticket.setScannedDate(LocalDateTime.now());
+
         Event event = ticket.getEvent();
         Venue venue = event.getVenue();
         TicketTier ticketTier = ticket.getTicketTier();
@@ -91,6 +97,7 @@ public class TicketService {
                 .tierDescription(ticketTier.getTierDescription())
                 .ticketPrice(ticketTier.getTicketPrice())
                 .purchaseDate(ticket.getPurchaseDate())
+                .lastScannedDate(ticket.getScannedDate())
                 .build();
     }
 

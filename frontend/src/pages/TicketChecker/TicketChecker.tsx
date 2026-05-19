@@ -8,6 +8,9 @@ const TicketChecker: React.FC = () => {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const scannerRef = useRef<QrScanner | null>(null);
 
+    const isProcessingRef = useRef(false);
+    const scanCooldownRef = useRef(false);
+
     const [ticketInfo, setTicketInfo] = useState<TicketInfo | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -30,7 +33,13 @@ const TicketChecker: React.FC = () => {
         setShowModal(false);
         setTicketInfo(null);
 
+        isProcessingRef.current = false;
+        scanCooldownRef.current = true;
         await scannerRef.current?.start();
+
+        setTimeout(() => {
+            scanCooldownRef.current = false;
+        }, 500);
     };
 
     const renderTicketModal = (): JSX.Element | null => {
@@ -44,6 +53,10 @@ const TicketChecker: React.FC = () => {
 
                     <p>
                         <strong>Description:</strong> {ticketInfo.eventDescription}
+                    </p>
+
+                    <p>
+                        <strong>Last Scan:</strong> {ticketInfo.lastScannedDate}
                     </p>
 
                     <p>
@@ -77,6 +90,10 @@ const TicketChecker: React.FC = () => {
         scannerRef.current = new QrScanner(
             videoRef.current,
             (result: { data: string }) => {
+                if (isProcessingRef.current) return;
+                if (scanCooldownRef.current) return;
+
+                isProcessingRef.current = true;
                 checkTicket(result.data);
             },
             {

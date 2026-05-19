@@ -9,4 +9,5 @@ export interface TicketInfo {
     tierDescription: string;
     ticketPrice: number;
     purchaseDate: string;
+    lastScannedDate: string;
 }

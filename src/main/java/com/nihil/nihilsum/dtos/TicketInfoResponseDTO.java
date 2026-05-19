@@ -23,4 +23,5 @@ public class TicketInfoResponseDTO {
     private String tierDescription;
     private BigDecimal ticketPrice;
     private LocalDateTime purchaseDate;
+    private LocalDateTime lastScannedDate;
 }
